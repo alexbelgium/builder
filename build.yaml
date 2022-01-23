@@ -1,5 +1,5 @@
-image: "homeassistant/{arch}-builder"
-shadow_repository: "ghcr.io/home-assistant"
+image: "alexbelgium/{arch}-builder"
+shadow_repository: "ghcr.io/alexbelgium"
 build_from:
   aarch64: "ghcr.io/home-assistant/aarch64-base:3.14"
   armv7: "ghcr.io/home-assistant/armv7-base:3.14"
@@ -16,7 +16,7 @@ labels:
   io.hass.type: builder
   org.opencontainers.image.title: "Home Assistant Builder"
   org.opencontainers.image.description: "Container-based build system for Home Assistant"
-  org.opencontainers.image.source: "https://github.com/home-assistant/builder"
+  org.opencontainers.image.source: "https://github.com/alexbelgium/builder"
   org.opencontainers.image.authors: "The Home Assistant Authors"
   org.opencontainers.image.url: "https://www.home-assistant.io/"
   org.opencontainers.image.documentation: "https://developers.home-assistant.io/"
