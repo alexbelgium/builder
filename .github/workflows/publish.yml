@@ -9,8 +9,6 @@ on:
 
 env:
   GIT_TAG_NAME: 2022.01.01
-  RELEASE_TAG: true
-  VERSION: 2022.01.01
 
 jobs:
   init:
@@ -62,4 +60,6 @@ jobs:
             --${{ matrix.architecture }} \
             --target /data \
             --docker-hub "ghcr.io/${{ github.repository_owner }}/builder" \
+            --image builder:$GIT_TAG_NAME \
+            --additional-tag $GIT_TAG_NAME \
             --generic $GIT_TAG_NAME
