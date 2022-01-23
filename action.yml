@@ -16,13 +16,11 @@ runs:
           input="latest"
         fi
         echo "::set-output name=version::${input}"
-
     - uses: home-assistant/actions/helpers/cas@master
 
     - shell: bash
       run: |
-        docker pull ghcr.io/alexbelgium/builder/amd64-builder:${{ steps.version.outputs.version }}
-
+        docker pull ghcr.io/home-assistant/amd64-builder:${{ steps.version.outputs.version }}
     - shell: bash
       run: |
         for j in {1..15}; do
@@ -31,30 +29,25 @@ runs:
           fi
           sleep $((5 * j))
         done
-
         echo "Invalid signature!"
         exit 1
-
     - shell: bash
       id: builder
       run: |
-        builder=$(docker images ghcr.io/alexbelgium/builder/amd64-builder:${{ steps.version.outputs.version }} -q)
+        builder=$(docker images ghcr.io/home-assistant/amd64-builder:${{ steps.version.outputs.version }} -q)
         echo "::set-output name=id::$builder"
-
     - shell: bash
       id: build
       run: |
         env > "${{ github.action_path }}/env_file"
         sed -i "/\(HOME\|TERM\|PWD\|HOSTNAME\|PATH\|SHLVL\|USER\|GOROOT\)/d" "${{ github.action_path }}/env_file"
-
         docker run --rm --privileged \
             -v /var/run/docker.sock:/var/run/docker.sock:ro \
             -v ~/.docker:/root/.docker \
             -v ${{ github.workspace }}:/data \
             --env-file "${{ github.action_path }}/env_file" \
-            ghcr.io/alexbelgium/builder/amd64-builder:${{ steps.version.outputs.version }} \
+            ghcr.io/home-assistant/amd64-builder:${{ steps.version.outputs.version }} \
             ${{ inputs.args }}
-
     - shell: bash
       id: verify
       run: |
