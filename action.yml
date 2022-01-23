@@ -16,7 +16,7 @@ runs:
           input="latest"
         fi
         echo "::set-output name=version::${input}"
-    - uses: alexbelgium/builder/actions/helpers/cas@master
+    - uses: home-assistant/actions/helpers/cas@master
 
     - shell: bash
       run: |
