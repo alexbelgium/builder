@@ -61,4 +61,3 @@ jobs:
             --target /data \
             --docker-hub "ghcr.io/${{ github.repository_owner }}/builder" \
             --generic $GIT_TAG_NAME
-            --release-tag $GIT_TAG_NAME
