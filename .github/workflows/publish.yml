@@ -60,6 +60,6 @@ jobs:
             --${{ matrix.architecture }} \
             --target /data \
             --docker-hub "ghcr.io/${{ github.repository_owner }}/builder" \
-            --image builder:$GIT_TAG_NAME \
+            --image builder \
             --additional-tag $GIT_TAG_NAME \
             --generic $GIT_TAG_NAME
