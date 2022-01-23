@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@v2.4.0
 
       - uses: olegtarasov/get-tag@v2.1
-        if: github.event_name == 'release'
+        #if: github.event_name == 'release'
         name: Set tag envronment variable
 
 #      - name: Login to DockerHub
