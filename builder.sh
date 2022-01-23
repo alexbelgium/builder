@@ -273,7 +273,27 @@ function run_build() {
 
     # Build image
     bashio::log.info "Run build for ${repository}/${image}:${version}"
-    docker build --pull -t "${repository}/${image}:${version}" \
+    # Create platform tag
+    case ${build_arch} in
+    armhf)
+    	PLATFORM="arm/v6"
+	;;
+    armv7)
+    	PLATFORM="arm/v7"
+	;;
+    aarch64)
+    	PLATFORM="arm64"
+	;;
+    amd64)
+    	PLATFORM="amd64"
+	;;
+    i386)
+    	PLATFORM="i386"
+	;;
+    esac
+    
+    
+    docker build --pull --platform linux/$PLATFORM -t "${repository}/${image}:${version}" \
         --build-arg "BUILD_FROM=${build_from}" \
         --build-arg "BUILD_VERSION=${version}" \
         --build-arg "BUILD_ARCH=${build_arch}" \
