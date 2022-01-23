@@ -1,5 +1,5 @@
 image: "alexbelgium/{arch}-builder"
-shadow_repository: "ghcr.io/alexbelgium/"
+shadow_repository: "ghcr.io/alexbelgium"
 build_from:
   aarch64: "ghcr.io/home-assistant/aarch64-base:3.14"
   armv7: "ghcr.io/home-assistant/armv7-base:3.14"
