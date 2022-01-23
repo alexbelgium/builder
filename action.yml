@@ -16,15 +16,15 @@ runs:
           input="latest"
         fi
         echo "::set-output name=version::${input}"
-    - uses: home-assistant/actions/helpers/cas@master
+    - uses: alexbelgium/builder/actions/helpers/cas@master
 
     - shell: bash
       run: |
-        docker pull ghcr.io/home-assistant/amd64-builder:${{ steps.version.outputs.version }}
+        docker pull ghcr.io/alexbelgium/builder/amd64-builder:${{ steps.version.outputs.version }}
     - shell: bash
       run: |
         for j in {1..15}; do
-          if CAS_API_KEY= cas authenticate --silent --signerID notary@home-assistant.io docker://ghcr.io/home-assistant/amd64-builder:${{ steps.version.outputs.version }}; then
+          if CAS_API_KEY= cas authenticate --silent --signerID notary@alexbelgium/builder.io docker://ghcr.io/alexbelgium/builder/amd64-builder:${{ steps.version.outputs.version }}; then
             exit 0
           fi
           sleep $((5 * j))
@@ -34,7 +34,7 @@ runs:
     - shell: bash
       id: builder
       run: |
-        builder=$(docker images ghcr.io/home-assistant/amd64-builder:${{ steps.version.outputs.version }} -q)
+        builder=$(docker images ghcr.io/alexbelgium/builder/amd64-builder:${{ steps.version.outputs.version }} -q)
         echo "::set-output name=id::$builder"
     - shell: bash
       id: build
@@ -46,7 +46,7 @@ runs:
             -v ~/.docker:/root/.docker \
             -v ${{ github.workspace }}:/data \
             --env-file "${{ github.action_path }}/env_file" \
-            ghcr.io/home-assistant/amd64-builder:${{ steps.version.outputs.version }} \
+            ghcr.io/alexbelgium/builder/amd64-builder:${{ steps.version.outputs.version }} \
             ${{ inputs.args }}
     - shell: bash
       id: verify
