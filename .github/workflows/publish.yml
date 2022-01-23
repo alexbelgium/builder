@@ -59,4 +59,5 @@ jobs:
           args: |
             --${{ matrix.architecture }} \
             --target /data \
+            --docker-hub "ghcr.io/${{ github.repository_owner }}" \
             --addon
